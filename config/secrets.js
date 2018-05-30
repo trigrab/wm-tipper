@@ -5,6 +5,14 @@ module.exports = {
 
   localAuth: true,
 
+  smtp: {
+        host: process.env.SMTP_HOST || 'smtp.example.com',
+        port: process.env.SMTP_PORT || '465',
+        username: process.env.SMTP_USER || 'user',
+        password: process.env.SMTP_PASSWORD || 'password',
+        tls: process.env.SMTP_TLS || true
+  },
+
   mailgun: {
     login: process.env.MAILGUN_LOGIN || 'Your Mailgun SMTP Username',
     password: process.env.MAILGUN_PASSWORD || 'Your Mailgun SMTP Password'

@@ -1,17 +1,15 @@
 var secrets = require('../config/secrets');
 var nodemailer = require("nodemailer");
-var smtpTransport = nodemailer.createTransport('SMTP', {
-//  service: 'Mailgun',
-//  auth: {
-//    user: secrets.mailgun.login,
-//    pass: secrets.mailgun.password
-//  }
-  service: 'SendGrid',
-  auth: {
-       user: secrets.sendgrid.user,
-       pass: secrets.sendgrid.password
-  }
-});
+var smtpConfig = {
+    host: secrets.smtp.host,
+      port: secrets.smtp.port,
+        secure: secrets.smtp.tls,
+          auth: {
+    user: secrets.smtp.user,
+                pass: secrets.smtp.password
+              }
+};
+var smtpTransport = nodemailer.createTransport(smtpConfig);
 
 /**
  * GET /contact
