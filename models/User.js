@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var validate = require('mongoose-validator').validate;
+var validate = require('mongoose-validator');
 
 var Promise = require('bluebird');
 
@@ -15,6 +15,14 @@ var utils = require('../helpers/utils');
 
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
+
+var nameValidator = [
+    validate({
+          validator: 'isLength',
+          arguments: [2, 32],
+          message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters',
+        }),
+];
 
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
@@ -31,7 +39,7 @@ var userSchema = new mongoose.Schema({
   admin: { type: Boolean, default: false },
 
   profile: {
-    name: { type: String, default: '', required: true, index: true, validate: validate('len', 2, 32) },
+    name: { type: String, default: '', required: true, index: true, validate: nameValidator },
     gender: { type: String, default: '' },
     location: { type: String, default: '' },
     website: { type: String, default: '' },
